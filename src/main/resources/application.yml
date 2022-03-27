@@ -1,0 +1,18 @@
+server:
+  port: 8090
+
+spring:
+  datasource:
+    url: jdbc:mysql://39.103.202.129:3306/graduation_design
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: yl2vXBS%FjGoSfby
+
+mybatis:
+  #type-aliases-package: pri.tangjiang.graduationdesign.bean
+  mapper-locations: classpath:mapper/*Mapper.xml
+  check-config-location: true
+
+logging:
+  level:
+    pri.tangjiang.graduationdesign.dao: debug
