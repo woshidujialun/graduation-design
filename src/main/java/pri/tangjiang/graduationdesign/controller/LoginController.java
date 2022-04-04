@@ -18,11 +18,11 @@ public class LoginController {
 
     @RequestMapping("/login")
     public Result login(@RequestBody @Validated LoginParam param) {
-        return loginService.login(param.getUsername(), param.getPassword());
+        return loginService.login(param.getUsername(), param.getPassword(), param.getIsAdmin());
     }
 
     @RequestMapping("/test")
-    public String test(){
+    public String test() {
         return "ok";
     }
 }

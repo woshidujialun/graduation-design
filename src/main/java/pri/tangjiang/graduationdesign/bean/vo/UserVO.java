@@ -5,8 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
-
 @Data
 @Builder
 @NoArgsConstructor
@@ -18,7 +16,7 @@ public class UserVO {
 
     private Integer departmentId;
 
-    private Date birthday;
+    private String birthday;
 
     private String gender;
 

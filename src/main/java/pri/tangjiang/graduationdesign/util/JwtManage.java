@@ -36,7 +36,7 @@ public class JwtManage {
         return token;
     }
 
-    public static Integer verifyToken(String token) throws Exception {
+    public static Long verifyToken(String token) throws Exception {
         DecodedJWT jwt = null;
         try {
             JWTVerifier verifier = JWT.require(Algorithm.HMAC256(SECRET)).build();
@@ -50,6 +50,6 @@ public class JwtManage {
         if (userId == null) {
             throw new Exception("token验证失败，无法获取用户信息失");
         }
-        return Integer.valueOf(userId.asInt());
+        return Long.valueOf(userId.asInt());
     }
 }

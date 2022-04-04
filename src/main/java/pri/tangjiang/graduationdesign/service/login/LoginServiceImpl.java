@@ -8,8 +8,6 @@ import pri.tangjiang.graduationdesign.util.Result;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Service
 public class LoginServiceImpl implements LoginService {
@@ -17,22 +15,27 @@ public class LoginServiceImpl implements LoginService {
     private UserMapper userMapper;
 
     @Override
-    public Result<Map<String, String>> login(String username, String password) {
-        if (username == null || password == null){
+    public Result login(String username, String password, Integer isAdmin) {
+        if (isAdmin != 0 && isAdmin != 1) {
+            return Result.fail("非法参数");
+        }
+        if (username == null || password == null) {
             return Result.fail("账户名或密码不能为空");
         }
 
         String token = null;
-        List<User> users = userMapper.getByUsername(username);
-        for (User user : users) {
-            if (password.equals(user.getPassword())){
-                token = JwtManage.create(user.getId());
-            }
-            break;
+        User user = userMapper.getByUsername(username);
+        if (user == null) {
+            return Result.fail("用户不存在");
+        }
+        if (password.equals(user.getPassword()) && (user.getAdmin().intValue() == isAdmin)) {
+            token = JwtManage.create(user.getId());
+        }else {
+            return Result.fail("非法参数");
         }
 
         HashMap<String, String> map = new HashMap<>();
-        map.put("token",token);
+        map.put("token", token);
         return Result.ok(map);
     }
 }

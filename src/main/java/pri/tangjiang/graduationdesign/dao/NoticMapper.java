@@ -1,7 +1,8 @@
 package pri.tangjiang.graduationdesign.dao;
 
-import java.util.List;
 import pri.tangjiang.graduationdesign.bean.Notic;
+
+import java.util.List;
 
 public interface NoticMapper {
     int deleteByPrimaryKey(Long id);
@@ -15,4 +16,6 @@ public interface NoticMapper {
     int updateByPrimaryKeyWithBLOBs(Notic record);
 
     int updateByPrimaryKey(Notic record);
+
+    List<Notic> listNotic();
 }

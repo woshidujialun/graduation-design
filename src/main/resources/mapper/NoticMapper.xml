@@ -52,6 +52,9 @@
     from tj_notice
     where id = #{id,jdbcType=BIGINT}
   </select>
+  <select id="listNotic" resultType="pri.tangjiang.graduationdesign.bean.Notic">
+    select * from tj_notice order by create_time desc
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from tj_notice
     where id = #{id,jdbcType=BIGINT}

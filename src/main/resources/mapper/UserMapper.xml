@@ -8,7 +8,7 @@
     <result column="username" property="username" jdbcType="VARCHAR" />
     <result column="password" property="password" jdbcType="VARCHAR" />
     <result column="department_id" property="department_id" jdbcType="INTEGER" />
-    <result column="birthday" property="birthday" jdbcType="DATE" />
+    <result column="birthday" property="birthday" jdbcType="VARCHAR" />
     <result column="gender" property="gender" jdbcType="TINYINT" />
     <result column="nickname" property="nickname" jdbcType="VARCHAR" />
     <result column="admin" property="admin" jdbcType="TINYINT" />
@@ -93,8 +93,6 @@
     FROM
     	tj_user u
     	LEFT JOIN tj_department d ON u.department_id = d.id
-    WHERE
-        u.admin = 0
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from tj_user
@@ -106,7 +104,7 @@
       gender, nickname, admin
       )
     values (#{create_time,jdbcType=TIMESTAMP}, #{modify_time,jdbcType=TIMESTAMP}, #{username,jdbcType=VARCHAR}, 
-      #{password,jdbcType=VARCHAR}, #{department_id,jdbcType=INTEGER}, #{birthday,jdbcType=DATE}, 
+      #{password,jdbcType=VARCHAR}, #{department_id,jdbcType=INTEGER}, #{birthday,jdbcType=VARCHAR},
       #{gender,jdbcType=TINYINT}, #{nickname,jdbcType=VARCHAR}, #{admin,jdbcType=TINYINT}
       )
   </insert>
@@ -158,7 +156,7 @@
         #{department_id,jdbcType=INTEGER},
       </if>
       <if test="birthday != null" >
-        #{birthday,jdbcType=DATE},
+        #{birthday,jdbcType=VARCHAR},
       </if>
       <if test="gender != null" >
         #{gender,jdbcType=TINYINT},
@@ -190,7 +188,7 @@
         department_id = #{department_id,jdbcType=INTEGER},
       </if>
       <if test="birthday != null" >
-        birthday = #{birthday,jdbcType=DATE},
+        birthday = #{birthday,jdbcType=VARCHAR},
       </if>
       <if test="gender != null" >
         gender = #{gender,jdbcType=TINYINT},
@@ -211,7 +209,7 @@
       username = #{username,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       department_id = #{department_id,jdbcType=INTEGER},
-      birthday = #{birthday,jdbcType=DATE},
+      birthday = #{birthday,jdbcType=VARCHAR},
       gender = #{gender,jdbcType=TINYINT},
       nickname = #{nickname,jdbcType=VARCHAR},
       admin = #{admin,jdbcType=TINYINT}

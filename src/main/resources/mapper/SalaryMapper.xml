@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="pri.tangjiang.graduationdesign.dao.SalaryMapper" >
+  <resultMap id="BaseResultMap" type="pri.tangjiang.graduationdesign.bean.Salary" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="salary" property="salary" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, create_time, modify_time, user_id, salary
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tj_salary
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+    <select id="list" resultType="pri.tangjiang.graduationdesign.bean.vo.SalaryVO">
+      SELECT
+      	u.nickname,
+      	s.salary
+      FROM
+      	tj_salary s
+      	LEFT JOIN tj_user u ON s.user_id = u.id
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tj_salary
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="pri.tangjiang.graduationdesign.bean.Salary" useGeneratedKeys="true" keyProperty="id" >
+    insert into tj_salary (create_time, modify_time, user_id, 
+      salary)
+    values (#{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, #{userId,jdbcType=INTEGER}, 
+      #{salary,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="pri.tangjiang.graduationdesign.bean.Salary" useGeneratedKeys="true" keyProperty="id" >
+    insert into tj_salary
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="salary != null" >
+        salary,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="salary != null" >
+        #{salary,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="pri.tangjiang.graduationdesign.bean.Salary" >
+    update tj_salary
+    <set >
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="salary != null" >
+        salary = #{salary,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="pri.tangjiang.graduationdesign.bean.Salary" >
+    update tj_salary
+    set create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      user_id = #{userId,jdbcType=INTEGER},
+      salary = #{salary,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

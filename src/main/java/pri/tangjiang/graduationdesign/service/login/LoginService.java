@@ -8,7 +8,8 @@ public interface LoginService {
      *
      * @param username
      * @param password
+     * @param isAdmin
      * @return
      */
-    Result login(String username, String password);
+    Result login(String username, String password, Integer isAdmin);
 }

@@ -6,7 +6,9 @@ spring:
     url: jdbc:mysql://39.103.202.129:3306/graduation_design
     driver-class-name: com.mysql.jdbc.Driver
     username: root
-    password: yl2vXBS%FjGoSfby
+    password: 123456
+  main:
+    allow-circular-references: true
 
 mybatis:
   #type-aliases-package: pri.tangjiang.graduationdesign.bean
@@ -16,3 +18,12 @@ mybatis:
 logging:
   level:
     pri.tangjiang.graduationdesign.dao: debug
+
+# pageHelper分页配置
+pagehelper:
+  helper-dialect: mysql
+  reasonable: false
+  support-methods-arguments: true
+  params: count=countSql
+
+

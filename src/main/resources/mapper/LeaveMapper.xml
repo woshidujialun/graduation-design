@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="pri.tangjiang.graduationdesign.dao.LeaveMapper">
+    <resultMap id="BaseResultMap" type="pri.tangjiang.graduationdesign.bean.Leave">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="create_time" property="create_time" jdbcType="TIMESTAMP"/>
+        <result column="modify_time" property="modify_time" jdbcType="TIMESTAMP"/>
+        <result column="start_time" property="start_time" jdbcType="TIMESTAMP"/>
+        <result column="end_time" property="end_time" jdbcType="TIMESTAMP"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="TINYINT"/>
+        <result column="user_id" property="user_id" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, create_time, modify_time, start_time, end_time, description, status, user_id
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from tj_leave
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <select id="notHandleLeave" resultType="pri.tangjiang.graduationdesign.bean.vo.LeaveVO">
+        SELECT
+            l.id,
+        	l.start_time,
+        	l.end_time,
+        	l.description,
+        	l.`status`,
+        	u.nickname
+        FROM
+        	tj_leave l,
+        	tj_user u
+        WHERE
+        	l.user_id = u.id
+        ORDER BY
+        	l.create_time DESC
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tj_leave
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" parameterType="pri.tangjiang.graduationdesign.bean.Leave" useGeneratedKeys="true"
+            keyProperty="id">
+    insert into tj_leave (create_time, modify_time, start_time, 
+      end_time, description, status, 
+      user_id)
+    values (#{create_time,jdbcType=TIMESTAMP}, #{modify_time,jdbcType=TIMESTAMP}, #{start_time,jdbcType=TIMESTAMP}, 
+      #{end_time,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, 
+      #{user_id,jdbcType=INTEGER})
+  </insert>
+    <insert id="insertSelective" parameterType="pri.tangjiang.graduationdesign.bean.Leave" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into tj_leave
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="create_time != null">
+                create_time,
+            </if>
+            <if test="modify_time != null">
+                modify_time,
+            </if>
+            <if test="start_time != null">
+                start_time,
+            </if>
+            <if test="end_time != null">
+                end_time,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="user_id != null">
+                user_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="create_time != null">
+                #{create_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modify_time != null">
+                #{modify_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="start_time != null">
+                #{start_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="end_time != null">
+                #{end_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=TINYINT},
+            </if>
+            <if test="user_id != null">
+                #{user_id,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="pri.tangjiang.graduationdesign.bean.Leave">
+        update tj_leave
+        <set>
+            <if test="create_time != null">
+                create_time = #{create_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modify_time != null">
+                modify_time = #{modify_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="start_time != null">
+                start_time = #{start_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="end_time != null">
+                end_time = #{end_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=TINYINT},
+            </if>
+            <if test="user_id != null">
+                user_id = #{user_id,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="pri.tangjiang.graduationdesign.bean.Leave">
+    update tj_leave
+    set create_time = #{create_time,jdbcType=TIMESTAMP},
+      modify_time = #{modify_time,jdbcType=TIMESTAMP},
+      start_time = #{start_time,jdbcType=TIMESTAMP},
+      end_time = #{end_time,jdbcType=TIMESTAMP},
+      description = #{description,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      user_id = #{user_id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

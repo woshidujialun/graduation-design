@@ -19,9 +19,9 @@ public interface UserMapper {
 
     int updateByPrimaryKey(User record);
 
-    List<User> getByUsername(@Param("username") String username);
+    User getByUsername(@Param("username") String username);
 
-    UserVO getByUserId(@Param("userId") Integer userId);
+    UserVO getByUserId(@Param("userId") Long userId);
 
     List<UserVO> listAllUser();
 }

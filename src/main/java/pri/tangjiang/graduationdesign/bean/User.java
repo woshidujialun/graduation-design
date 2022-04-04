@@ -15,13 +15,23 @@ public class User {
 
     private Integer department_id;
 
-    private Date birthday;
+    private String birthday;
 
     private Byte gender;
 
     private String nickname;
 
     private Byte admin;
+
+    private Integer ifmyself;
+
+    public Integer getIfmyself() {
+        return ifmyself;
+    }
+
+    public void setIfmyself(Integer ifmyself) {
+        this.ifmyself = ifmyself;
+    }
 
     public Long getId() {
         return id;
@@ -71,11 +81,11 @@ public class User {
         this.department_id = department_id;
     }
 
-    public Date getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 
